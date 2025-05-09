@@ -1,0 +1,24 @@
+/* Import Google Font: Roboto */
+@import url('https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;700&display=swap');
+
+/* Base Styles */
+body {
+  font-family: 'Roboto', sans-serif;
+}
+
+/* Article Card Styles */
+.article-card {
+  transition: transform 0.3s, box-shadow 0.3s;
+}
+
+.article-card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+}
+
+/* Image Styles */
+.w3-image {
+  width: 100%;
+  height: auto;
+  border-radius: 8px;
+}
