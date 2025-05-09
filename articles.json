@@ -1,0 +1,23 @@
+[
+  {
+    "title": "AI Revolutionizes Healthcare",
+    "author": "Dr. Emily Chen",
+    "date": "2025-05-01",
+    "summary": "New AI models are transforming diagnostics and patient care with unprecedented accuracy.",
+    "image": "https://placehold.co/600x400?text=Healthcare"
+  },
+  {
+    "title": "Global Climate Summit 2025",
+    "author": "James Wilson",
+    "date": "2025-04-28",
+    "summary": "World leaders commit to ambitious emissions targets to combat climate change.",
+    "image": "https://placehold.co/600x400?text=Climate"
+  },
+  {
+    "title": "Quantum Computing Breakthrough",
+    "author": "Prof. Raj Patel",
+    "date": "2025-04-25",
+    "summary": "Researchers achieve a 10x increase in quantum processing speeds.",
+    "image": "https://placehold.co/600x400?text=Quantum"
+  }
+]

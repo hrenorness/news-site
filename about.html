@@ -1,0 +1,100 @@
+<script type="text/javascript">
+        var gk_isXlsx = false;
+        var gk_xlsxFileLookup = {};
+        var gk_fileData = {};
+        function filledCell(cell) {
+          return cell !== '' && cell != null;
+        }
+        function loadFileData(filename) {
+        if (gk_isXlsx && gk_xlsxFileLookup[filename]) {
+            try {
+                var workbook = XLSX.read(gk_fileData[filename], { type: 'base64' });
+                var firstSheetName = workbook.SheetNames[0];
+                var worksheet = workbook.Sheets[firstSheetName];
+
+                // Convert sheet to JSON to filter blank rows
+                var jsonData = XLSX.utils.sheet_to_json(worksheet, { header: 1, blankrows: false, defval: '' });
+                // Filter out blank rows (rows where all cells are empty, null, or undefined)
+                var filteredData = jsonData.filter(row => row.some(filledCell));
+
+                // Heuristic to find the header row by ignoring rows with fewer filled cells than the next row
+                var headerRowIndex = filteredData.findIndex((row, index) =>
+                  row.filter(filledCell).length >= filteredData[index + 1]?.filter(filledCell).length
+                );
+                // Fallback
+                if (headerRowIndex === -1 || headerRowIndex > 25) {
+                  headerRowIndex = 0;
+                }
+
+                // Convert filtered JSON back to CSV
+                var csv = XLSX.utils.aoa_to_sheet(filteredData.slice(headerRowIndex)); // Create a new sheet from filtered array of arrays
+                csv = XLSX.utils.sheet_to_csv(csv, { header: 1 });
+                return csv;
+            } catch (e) {
+                console.error(e);
+                return "";
+            }
+        }
+        return gk_fileData[filename] || "";
+        }
+        </script><!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Learn about NewsHub's mission and team">
+  <meta name="keywords" content="about, mission, team, NewsHub, news">
+  <meta name="author" content="NewsHub Team">
+  <title>About NewsHub</title>
+  <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+  <!-- Header with Navigation -->
+  <header class="w3-container w3-light-grey">
+    <nav class="w3-bar w3-padding-16">
+      <a href="index.html" class="w3-bar-item w3-button w3-hover-none">
+        <img src="https://placehold.co/100x100?text=NewsHub" alt="NewsHub Logo" style="width:100px">
+      </a>
+      <a href="about.html" class="w3-bar-item w3-button w3-right">About</a>
+    </nav>
+  </header>
+
+  <!-- Main Content -->
+  <main class="w3-container w3-padding-32">
+    <article class="w3-card-4 w3-padding w3-animate-zoom">
+      <h2 class="w3-center">Our Mission</h2>
+      <p>At NewsHub, we are committed to delivering accurate, timely, and unbiased news to empower our readers with knowledge and insights.</p>
+      
+      <section class="w3-margin-top">
+        <h3>Our Team</h3>
+        <div class="w3-row-padding">
+          <div class="w3-col m4">
+            <div class="w3-card w3-padding">
+              <h4>John Doe</h4>
+              <p>Editor-in-Chief</p>
+            </div>
+          </div>
+          <div class="w3-col m4">
+            <div class="w3-card w3-padding">
+              <h4>Jane Smith</h4>
+              <p>Senior Writer</p>
+            </div>
+          </div>
+          <div class="w3-col m4">
+            <div class="w3-card w3-padding">
+              <h4>Sam Lee</h4>
+              <p>Technology Analyst</p>
+            </div>
+          </div>
+        </div>
+      </section>
+    </article>
+  </main>
+
+  <!-- Footer -->
+  <footer class="w3-container w3-dark-grey w3-center w3-padding-32 w3-margin-top">
+    <p>© 2025 NewsHub. All rights reserved.</p>
+  </footer>
+</body>
+</html>
